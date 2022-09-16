@@ -8,7 +8,17 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
+    "cli-progress": "^3.11.2",
     "hypua": "^1.0.3",
-    "node-xlsx": "^0.21.0"
+    "knex": "^2.3.0",
+    "mongodb": "^4.9.1",
+    "node-xlsx": "^0.21.0",
+    "ora": "5.4.1",
+    "piscina": "^3.2.0"
+  },
+  "scripts": {
+    "setup": "ts-node src/import.ts",
+    "write": "ts-node src",
+    "perform": "ts-node src/performanceCheck.ts"
   }
 }

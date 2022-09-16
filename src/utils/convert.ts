@@ -45,32 +45,34 @@ export const convertWordClass = (wordClass: string): WordClass => {
       return WordClass.AuxiliaryAdjective;
     case "어미":
       return WordClass.Ending;
-    case "관형사·명사":
+    case "관·명":
       return WordClass.DeterminerNoun;
-    case "수사·관형사":
+    case "수·관":
       return WordClass.NumeralDeterminer;
-    case "명사·부사":
+    case "명·부":
       return WordClass.NounAdverb;
-    case "감탄사·명사":
+    case "감·명":
       return WordClass.InterjectionNoun;
-    case "대명사·부사":
+    case "대·부":
       return WordClass.PronounAdverb;
-    case "대명사·감탄사":
+    case "대·감":
       return WordClass.PronounInterjection;
-    case "동사·형용사":
+    case "동·형":
       return WordClass.VerbAdjective;
-    case "관형사·감탄사":
+    case "관·감":
       return WordClass.DeterminerInterjection;
-    case "부사·감탄사":
+    case "부·감":
       return WordClass.AdverbInterjection;
-    case "의존명사·조사":
+    case "의명·조":
       return WordClass.DependentNounPostposition;
-    case "수사·관형사·명사":
+    case "수·관·명":
       return WordClass.NumeralDeterminerNoun;
-    case "대명사·관형사":
+    case "대·관":
       return WordClass.PronounDeterminer;
-    default:
+    case "품사 없음":
       return WordClass.None;
+    default:
+      throw new Error(`Unknown word class: ${wordClass}`);
   }
 };
 

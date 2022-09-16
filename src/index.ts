@@ -1,50 +1,28 @@
-import xlsx from "node-xlsx";
-
-import { toIpfString } from "hypua";
-import * as fs from "fs";
+import path from "path";
+import fs from "fs";
+import config from "./config";
+import mongo from "./modules/mongo";
 import { Word } from "./types";
-import {
-  convertRegion,
-  convertWordClass,
-  convertWordType,
-} from "./utils/convert";
+import * as process from "process";
 
-const LoadWordData = () => {
-  const entryWords = [];
-  const reversedEasyCounts: Record<number, string[]> = {};
+const dir = path.resolve(__dirname, "..", "data", "words.json");
+const args = process.argv.filter((a) => ["--rm"].includes(a));
 
-  const files = fs.readdirSync("./data");
-  const xlsxFiles = files.filter((file) => file.endsWith(".xls"));
-
-  const words: Word[] = [];
-  let index = 0;
-  for (const file of xlsxFiles) {
-    console.info(`Loading ${file}`);
-    const workSheetsFromFile = xlsx.parse(`./data/${file}`);
-    const workSheet = workSheetsFromFile[0];
-
-    let innerIndex = 0;
-    for (const row of workSheet.data as string[]) {
-      index++;
-      innerIndex++;
-      if (innerIndex === 1) break;
-      if (["속담", "관용구"].includes(row[1])) continue;
-
-      words.push({
-        word: toIpfString(row[0]).replace(/[-^\s]/g, ""),
-        sense: toIpfString(row[11]),
-        senseId: parseInt(row[10]),
-        region: convertRegion(row[15]),
-        wordType: convertWordType(row[2]),
-        wordClass: convertWordClass(row[9]),
-        category: row[17] || undefined,
-      });
-    }
-    break;
+const setup = async () => {
+  if (!fs.existsSync(dir)) {
+    console.error("Please run 'yarn setup' first");
+    process.exit(1);
   }
 
-  fs.writeFileSync("./data/words.json", JSON.stringify(words, null, 2));
-  console.info(`Loaded ${words.length} words`);
+  const words = JSON.parse(fs.readFileSync(dir, "utf-8")) as Word[];
+
+  if (config.db.startsWith("mongodb")) {
+    await mongo(words, args);
+  } else {
+  }
+
+  console.info("Done");
+  process.exit();
 };
 
-LoadWordData();
+setup().then();

@@ -4,6 +4,7 @@ import config from "./config";
 import mongo from "./modules/mongo";
 import { Word } from "./types";
 import * as process from "process";
+import sql from "./modules/sql";
 
 const dir = path.resolve(__dirname, "..", "data", "words.json");
 const args = process.argv.filter((a) => ["--rm"].includes(a));
@@ -19,6 +20,7 @@ const setup = async () => {
   if (config.db.startsWith("mongodb")) {
     await mongo(words, args);
   } else {
+    await sql(words, args);
   }
 
   console.info("Done");

@@ -1,11 +1,38 @@
 export interface Word {
-  word: string;
-  sense: string;
-  senseId: number;
-  region: Region;
-  wordType: WordType;
-  wordClass: WordClass;
-  category?: string;
+  word: string; // 어휘 (필수 항목)
+  wordUnit: WordUnit; // 구성 단위 (필수 항목)
+  wordType?: WordType; // 고유어 여부
+  originDetail?: string; // 원어·어종
+  originalLanguage?: string; // 원어
+  origin?: string; // 어원
+  pronunciation?: string; // 발음
+  conjugation?: string; // 활용
+  allomorph?: string; // 검색용 이형태
+  pos: Pos; // 품사 (필수 항목)
+  senseNumber: number; // 의미 번호 (필수 항목)
+  definition: string; // 뜻풀이 (필수 항목)
+  region?: string; // 방언 지역
+  pattern?: string; // 문형
+  grammar?: string; // 문법
+  wordGroup?: WordGroup; // 범주
+  example?: string; // 용례
+  category?: string; // 전문 분야
+  relation?: string; // 관련 어휘
+  proverb?: string; // 속담
+  idiom?: string; // 관용구
+  translation?: string; // 대역어
+  biologicalClassification?: string; // 생물 분류군 정보
+  history?: string; // 역사 정보
+  signLanguage?: string; // 수어 정보
+  norm?: string; // 규범 정보
+  multimedia?: string; // 다중 매체(멀티미디어) 정보
+}
+
+export enum WordUnit {
+  Word,
+  Phrase,
+  Idiom,
+  Proverb,
 }
 
 // 고유어 여부
@@ -18,7 +45,7 @@ export enum WordType {
 }
 
 // 품사
-export enum WordClass {
+export enum Pos {
   Noun, // 명사
   Pronoun, // 대명사
   Numeral, // 수사
@@ -49,7 +76,7 @@ export enum WordClass {
 }
 
 // 범주
-export enum Region {
+export enum WordGroup {
   General, // 표준어
   Dialect, // 지역어 (방언)
   NKorean, // 북한어

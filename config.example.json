@@ -1,4 +1,37 @@
 {
   "db": "",
-  "table": ""
+  "table": "",
+
+  "field": {
+    "word": true,
+    "wordUnit": false,
+    "wordType": false,
+    "originDetail": false,
+    "originalLanguage": false,
+    "origin": false,
+    "pronunciation": false,
+    "conjugation": false,
+    "allomorph": false,
+    "pos": true,
+    "senseNumber": true,
+    "definition": true,
+    "region": false,
+    "pattern": false,
+    "grammar": false,
+    "wordGroup": false,
+    "example": false,
+    "category": true,
+    "relation": false,
+    "proverb": false,
+    "idiom": false,
+    "translation": false,
+    "biologicalClassification":false,
+    "history": false,
+    "signLanguage": false,
+    "norm": false,
+    "multimedia": false
+  },
+
+  "removeSymbolFromWord": false,
+  "removeSpacingFromWord": false
 }

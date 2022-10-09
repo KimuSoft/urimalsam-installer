@@ -1,4 +1,4 @@
-import { Region, Word, WordClass, WordType } from "../types";
+import { WordGroup, Word, Pos, WordType } from "../types";
 import config from "../config";
 import * as knex from "knex";
 

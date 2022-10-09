@@ -30,10 +30,11 @@ const LoadWordData = async () => {
   console.timeEnd("load");
   words.sort(
     (a, b) =>
-      a.word.localeCompare(b.word) * 10000 + (a.senseId - b.senseId) / 1000
+      a.word.localeCompare(b.word) * 10000 +
+      (a.senseNumber - b.senseNumber) / 1000
   );
   fs.writeFileSync("./data/words.json", JSON.stringify(words, null, 2));
-  console.info(`Loaded ${words.length} words`);
+  console.info(`Loaded ${words.length.toLocaleString()} words`);
 };
 
 LoadWordData().then();

@@ -1,10 +1,26 @@
-import { Region, WordClass, WordType } from "../types";
+import { WordGroup, Pos, WordType, WordUnit } from "../types";
 
-export const convertWordType = (wordType: string): WordType => {
+export const convertWordUnit = (wordUnit: string): WordUnit => {
+  switch (wordUnit) {
+    case "단어":
+      return WordUnit.Word;
+    case "구":
+      return WordUnit.Phrase;
+    case "관용구":
+      return WordUnit.Idiom;
+    case "속담":
+      return WordUnit.Proverb;
+    default:
+      throw new Error(`Unknown WordUnit: "${wordUnit}"`);
+  }
+};
+
+export const convertWordType = (wordType: string): WordType | undefined => {
+  if (!wordType) return;
   switch (wordType) {
     case "고유어":
       return WordType.Native;
-    case "한자":
+    case "한자어":
       return WordType.Chinese;
     case "외래어":
       return WordType.Loanword;
@@ -15,76 +31,77 @@ export const convertWordType = (wordType: string): WordType => {
   }
 };
 
-export const convertWordClass = (wordClass: string): WordClass => {
+export const convertWordClass = (wordClass: string): Pos => {
   switch (wordClass) {
     case "명사":
-      return WordClass.Noun;
+      return Pos.Noun;
     case "대명사":
-      return WordClass.Pronoun;
+      return Pos.Pronoun;
     case "수사":
-      return WordClass.Numeral;
+      return Pos.Numeral;
     case "조사":
-      return WordClass.Postposition;
+      return Pos.Postposition;
     case "동사":
-      return WordClass.Verb;
+      return Pos.Verb;
     case "형용사":
-      return WordClass.Adjective;
+      return Pos.Adjective;
     case "관형사":
-      return WordClass.Determiner;
+      return Pos.Determiner;
     case "부사":
-      return WordClass.Adverb;
+      return Pos.Adverb;
     case "감탄사":
-      return WordClass.Interjection;
+      return Pos.Interjection;
     case "접사":
-      return WordClass.Affix;
+      return Pos.Affix;
     case "의존 명사":
-      return WordClass.DependentNoun;
+      return Pos.DependentNoun;
     case "보조 동사":
-      return WordClass.AuxiliaryVerb;
+      return Pos.AuxiliaryVerb;
     case "보조 형용사":
-      return WordClass.AuxiliaryAdjective;
+      return Pos.AuxiliaryAdjective;
     case "어미":
-      return WordClass.Ending;
+      return Pos.Ending;
     case "관·명":
-      return WordClass.DeterminerNoun;
+      return Pos.DeterminerNoun;
     case "수·관":
-      return WordClass.NumeralDeterminer;
+      return Pos.NumeralDeterminer;
     case "명·부":
-      return WordClass.NounAdverb;
+      return Pos.NounAdverb;
     case "감·명":
-      return WordClass.InterjectionNoun;
+      return Pos.InterjectionNoun;
     case "대·부":
-      return WordClass.PronounAdverb;
+      return Pos.PronounAdverb;
     case "대·감":
-      return WordClass.PronounInterjection;
+      return Pos.PronounInterjection;
     case "동·형":
-      return WordClass.VerbAdjective;
+      return Pos.VerbAdjective;
     case "관·감":
-      return WordClass.DeterminerInterjection;
+      return Pos.DeterminerInterjection;
     case "부·감":
-      return WordClass.AdverbInterjection;
+      return Pos.AdverbInterjection;
     case "의명·조":
-      return WordClass.DependentNounPostposition;
+      return Pos.DependentNounPostposition;
     case "수·관·명":
-      return WordClass.NumeralDeterminerNoun;
+      return Pos.NumeralDeterminerNoun;
     case "대·관":
-      return WordClass.PronounDeterminer;
+      return Pos.PronounDeterminer;
     case "품사 없음":
-      return WordClass.None;
+      return Pos.None;
     default:
       throw new Error(`Unknown word class: ${wordClass}`);
   }
 };
 
-export const convertRegion = (region: string): Region => {
+export const convertRegion = (region: string): WordGroup | undefined => {
+  if (!region) return;
   switch (region) {
     case "방언":
-      return Region.Dialect;
+      return WordGroup.Dialect;
     case "옛말":
-      return Region.Ancient;
+      return WordGroup.Ancient;
     case "북한어":
-      return Region.NKorean;
+      return WordGroup.NKorean;
     default:
-      return Region.General;
+      return WordGroup.General;
   }
 };

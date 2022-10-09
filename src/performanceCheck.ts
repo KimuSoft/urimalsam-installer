@@ -1,5 +1,6 @@
 import config from "./config";
-import { WordClass } from "./types";
+import { Pos } from "./types";
+import * as knex from "knex";
 
 const run = async () => {
   if (config.db.startsWith("mongodb")) {
@@ -28,11 +29,7 @@ const run = async () => {
           $match: {
             word: { $regex: /^[늣릇]+/ },
             wordClass: {
-              $nin: [
-                WordClass.Adjective,
-                WordClass.Verb,
-                WordClass.Postposition,
-              ],
+              $nin: [Pos.Adjective, Pos.Verb, Pos.Postposition],
             },
           },
         },
@@ -48,6 +45,16 @@ const run = async () => {
       console.info("Closing MongoDB connection");
       await client.close();
     }
+  } else {
+    console.info("Start to connect to SQL Database");
+    const client = knex.default({
+      client: config.db.split("://")[0].replace("postgresql", "pg"),
+      connection: config.db,
+    });
+
+    console.time("Random");
+    await client.raw("SELECT * FROM words ORDER BY RANDOM() LIMIT 1");
+    console.timeEnd("Random");
   }
 };
 
